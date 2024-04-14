@@ -2,110 +2,107 @@ package com.vladimir.spring.Controllers;
 
 import com.vladimir.spring.Models.Users;
 import com.vladimir.spring.Models.Workout;
+import com.vladimir.spring.Out.Out;
+import com.vladimir.spring.Service.WorkoutService;
+import com.vladimir.spring.Service.WorkoutServiceImpl;
 
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-//Controller для работы с тренировками
-public class WorkoutController extends AuthController{
 
+/**
+ * Controller для работы с тренировками
+ */
+public class WorkoutController {
+    WorkoutService workoutService = new WorkoutServiceImpl();
+    Out out = new Out();
 
-
-    public List<Workout> workoutList = new ArrayList<>();
-
-    //Метод добавления тренировки в список пользователя,
-    //который создал эту тренировку
+    /**
+     * Метод добавления тренировки в список пользователя, который создал эту тренировку
+     * @param user
+     * @throws ParseException
+     */
     public void addWorkoutToUser(Users user) throws ParseException {
         Scanner scanner = new Scanner(System.in);
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        System.out.println("Добавить тренировку");
-        System.out.println("Введите данные о тренировке");
-        System.out.println("Тип тренировки");
+        out.enterTypeOfTraining();
         String typeOfTraining = scanner.nextLine();
-        System.out.println("Введите дату тренировки (dd/MM/yyyy)");
+        out.enterDateOfTraining();
         String date1 = scanner.nextLine();
         Date date = format.parse(date1);
-        System.out.println("Время тренировки");
+        out.enterTimeOfTraining();
         int timeOfTraining = scanner.nextInt();
-        System.out.println("Количество калорий");
+        out.enterCalories();
         int calories = scanner.nextInt();
-        System.out.println("Количество упражнений");
+        out.enterCountEx();
         int countOfEx = scanner.nextInt();
-        System.out.println("Количество шагов");
+        out.enterCountOfSteps();
         int countOfSteps = scanner.nextInt();
-        Workout workout = new Workout(typeOfTraining, date,timeOfTraining,  calories,countOfEx, countOfSteps);
-        user.getUserWorkoutList().add(workout);
+        workoutService.addWorkoutToUser(user, typeOfTraining, date, timeOfTraining, calories, countOfEx, countOfSteps);
         System.out.println("Тренировка была успешно добавлена");
     }
 
-    //Метод вывода в консоль списка тренировок
-    //и индекса каждой тренировки
-    public List<Workout> getAllWorkouts(Users user){
-        if(user.getUserWorkoutList().isEmpty()){
-            System.out.println("Список тренировок пуст");
-        }
-        else {
-            for (Workout w : user.getUserWorkoutList()) {
-                int index = user.getUserWorkoutList().indexOf(w);
-                System.out.println("Номер тренировки:" +index + " " + w.toString() + "\n");
-            }
-
-     }
-        return workoutList ;
-    }
-    //Метод вывода в консоль отсортированного списка тренировок по дате
-    public void getSortedListByDate(Users user){
-        List<Workout> workoutList1 = new ArrayList<>(user.getUserWorkoutList());
-        workoutList1.sort((w, w1) -> w.getDateOfTraining().compareTo(w1.getDateOfTraining()));
-        List<Workout> sortedList = new ArrayList<>(workoutList1);
-        for( Workout workout: sortedList){
-            System.out.println(workout.toString());
-        }
-
+    /**
+     *  Метод вывода в консоль списка тренировок и индекса каждой тренировки
+     */
+    public List<Workout> getAllWorkouts(Users user) {
+        return workoutService.getAllWorkouts(user);
     }
 
+    /**
+     * Метод вывода в консоль отсортированного списка тренировок по дате
+     */
 
-    //Метод редактирования тренировки по индексу
+    public void getSortedListByDate(Users user) {
+        workoutService.getSortedListByDate(user);
+    }
+
+    /**
+     * Метод редактирования тренировки по индексу
+     */
     public void editWorkout(int index, Users user) throws ParseException {
-        if(index >=0 && index<=user.getUserWorkoutList().size()){
+        if (index >= 0 && index <= user.getUserWorkoutList().size()) {
             Scanner scanner = new Scanner(System.in);
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-            System.out.println("Редактировать тренировку тренировку");
-            System.out.println("Введите данные о тренировке");
-            System.out.println("Тип тренировки");
+            System.out.println("Редактировать тренировку тренировку\n" +
+                    "Введите данные о тренировке");
+            out.enterTypeOfTraining();
             String typeOfTraining = scanner.nextLine();
-            System.out.println("Введите дату тренировки (dd/MM/yyyy)");
+            out.enterDateOfTraining();
             String date1 = scanner.nextLine();
             Date date = format.parse(date1);
-            System.out.println("Время тренировки");
+            out.enterTimeOfTraining();
             int timeOfTraining = scanner.nextInt();
-            System.out.println("Количество калорий");
+            out.enterCalories();
             int calories = scanner.nextInt();
-            System.out.println("Количество упражнений");
+            out.enterCountEx();
             int countOfEx = scanner.nextInt();
-            System.out.println("Количество шагов");
+            out.enterCountOfSteps();
             int countOfSteps = scanner.nextInt();
-            Workout workout = new Workout(typeOfTraining, date,timeOfTraining,  calories,countOfEx, countOfSteps);
-            user.getUserWorkoutList().set(index, workout);
+            workoutService.editWorkout(index, user, typeOfTraining, date, timeOfTraining, calories, countOfEx, countOfSteps);
             System.out.println("Тренировка была успешно изменена");
-        }
-        else{
+        } else {
             System.out.println("Тренировки с таким номером нет");
         }
     }
-    //Метод удаления тренировки по индексу
-    public void deleteWorkout(int index, Users user){
-        user.getUserWorkoutList().remove(index);
+
+    /**
+     * Метод удаления тренировки по индексу
+     */
+
+    public void deleteWorkout(int index, Users user) {
+        workoutService.deleteWorkout(index, user);
         System.out.println("Тренировка была успешно удалена");
     }
 
-    public List<Workout> getWorkoutList(){
-        return workoutList;
+    /**
+     * Метод выводит все тренировки всех пользователей
+     */
+    public void showAllWorkouts() {
+        workoutService.showAllWorkouts();
     }
-
 }

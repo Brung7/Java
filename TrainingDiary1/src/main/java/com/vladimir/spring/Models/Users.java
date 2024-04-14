@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
+/**
+ * Модель пользователя
+ */
 public class Users {
 
     private String username;

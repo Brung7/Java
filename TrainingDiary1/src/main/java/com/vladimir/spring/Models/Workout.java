@@ -6,6 +6,9 @@ import java.time.LocalDate;
 import java.util.Date;
 
 @Data
+/**
+ * Модель тренировки
+ */
 public class Workout {
 
     private String typeOfTraining;
