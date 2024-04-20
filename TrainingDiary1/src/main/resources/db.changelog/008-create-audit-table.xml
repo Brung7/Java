@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd"
+        logicalFilePath="db/changelog.xml">
+    <changeSet id="008-create-audit-table.xml" author="Vladimir">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="useraudit" tableName="audit"/>
+            </not>
+        </preConditions>
+        <createTable schemaName="useraudit" tableName="audit">
+            <column name="id" type="BIGINT">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="username" type="VARCHAR(255)">
+                <constraints  nullable="false"/>
+            </column>
+            <column name="action" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="timestamp" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

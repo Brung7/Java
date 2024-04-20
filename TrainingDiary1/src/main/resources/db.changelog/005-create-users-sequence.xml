@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd"
+        logicalFilePath="db/changelog.xml">
+    <changeSet id="005-create-users-sequence.xml" author="vladimir">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="users_sequence" />
+            </not>
+        </preConditions>
+        <createSequence  dataType="int"
+                         incrementBy="2"
+                         minValue="14"
+                         schemaName="trainingdiary"
+                         sequenceName="users_sequence"
+                         startValue="14"/>
+
+    </changeSet>
+
+</databaseChangeLog>

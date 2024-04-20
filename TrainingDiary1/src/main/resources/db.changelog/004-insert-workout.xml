@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd"
+        logicalFilePath="db/changelog.xml">
+    <changeSet id="004-insert-workout" author="Vladimir">
+        <insert schemaName="trainingdiary" tableName="workout">
+            <column name="id" value="1"/>
+            <column name="user_id" value="10"/>
+            <column name="type_of_train" value="gym"/>
+            <column name="date_of_train" value="11/11/2023"/>
+            <column name="time_of_train" value="1"/>
+            <column name="calories" value="800"/>
+            <column name="count_of_ex" value="4"/>
+            <column name="count_of_steps" value="5000"/>
+        </insert>
+        <insert schemaName="trainingdiary" tableName="workout">
+            <column name="id" value="8"/>
+            <column name="user_id" value="12"/>
+            <column name="type_of_train" value="gym"/>
+            <column name="date_of_train" value="10/01/2023"/>
+            <column name="time_of_train" value="3"/>
+            <column name="calories" value="800"/>
+            <column name="count_of_ex" value="2"/>
+            <column name="count_of_steps" value="1000"/>
+        </insert>
+        <insert schemaName="trainingdiary" tableName="workout">
+            <column name="id" value="15"/>
+            <column name="user_id" value="12"/>
+            <column name="type_of_train" value="cardio"/>
+            <column name="date_of_train" value="22/07/2023"/>
+            <column name="time_of_train" value="2"/>
+            <column name="calories" value="800"/>
+            <column name="count_of_ex" value="1"/>
+            <column name="count_of_steps" value="3000"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

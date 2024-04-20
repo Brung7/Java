@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd"
+        logicalFilePath="db/changelog.xml">
+    <changeSet id="002-create-workout-table" author="Vladimir">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="trainingdiary" tableName="workout"/>
+            </not>
+        </preConditions>
+        <createTable schemaName="trainingdiary" tableName="workout">
+            <column name="id" type="BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="userId" referencedTableSchemaName="trainingdiary" referencedTableName="users" referencedColumnNames="id"/>
+            </column>
+            <column name="type_of_train" type="VARCHAR(255)">
+            </column>
+            <column name="date_of_train" type="VARCHAR(255)">
+            </column>
+            <column name="time_of_train" type="VARCHAR(255)">
+            </column>
+            <column name="calories" type="INT">
+            </column>
+            <column name="count_of_ex" type="INT">
+            </column>
+            <column name="count_of_steps" type="INT">
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
