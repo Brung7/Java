@@ -1,4 +1,6 @@
 #ДЗ_2 
+
+Миграции запускаются из класса MigrationStart, который лежит в package Liquibase
 #
 #Training Diary. Домашнее задание JDBC и Миграции
 
